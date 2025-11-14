@@ -3,25 +3,25 @@
 
 int main()
 {
-    //try-catch for safety
+    // try-catch for safety
     try
     {
-        //create game instance
-        // Game game;
+        // create game instance
+        Game game;
         
-        //initialize game
-        // game.init();
+        // initialize game
+        game.init();
         
-        //run main loop
-        // game.run();
+        // run main loop
+        game.run();
         
-        //log "Game shut down successfully"
-        // return 0;
+        std::cout << "Game shut down successfully" << std::endl;
+        return 0;
     }
     catch (const std::exception& e)
     {
-        //std::cerr << "Fatal error: " << e.what() << std::endl;
-        //return 1;
+        std::cerr << "Fatal error: " << e.what() << std::endl;
+        return 1;
     }
     
     return 0;
