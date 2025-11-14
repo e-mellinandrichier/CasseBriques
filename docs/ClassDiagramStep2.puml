@@ -1,0 +1,204 @@
+@startuml ClassDiagramStep2
+
+!define ABSTRACT abstract
+!theme plain
+
+' Enums and Structs (from Step 1)
+enum ShapeType {
+  CIRCLE
+  RECTANGLE
+}
+
+struct AABB {
+  x : float
+  y : float
+  width : float
+  height : float
+  --
+  left() : float
+  right() : float
+  top() : float
+  bottom() : float
+  center() : Vector2f
+  contains(point) : bool
+}
+
+' Base Classes (Step 1)
+class GameObject {
+  #position : Vector2f
+  #velocity : Vector2f
+  #rotation : float
+  #size : Vector2f
+  #color : Color
+  #shapeType : ShapeType
+  #collisionBox : AABB
+  --
+  +virtual ~GameObject()
+  +virtual update(deltaTime)
+  +virtual render(window)
+  +getters/setters...
+  #updateCollisionBox()
+}
+
+class Game {
+  -window : RenderWindow
+  -gameObjects : vector<unique_ptr<GameObject>>
+  -isRunning : bool
+  -deltaTime : float
+  --
+  +init()
+  +run()
+  +quit()
+  +addGameObject(obj)
+  +removeGameObject(obj)
+  -update(deltaTime)
+  -render()
+  -checkCollisions()
+}
+
+class InputManager {
+  +{static} getInstance() : InputManager&
+  +update(window)
+  +registerKeyCallback(key, callback)
+  +isKeyPressed(key) : bool
+  +getMousePosition() : Vector2f
+}
+
+class CollisionDetector {
+  +{static} checkAABB(box1, box2) : bool
+  +{static} checkCircleAABB(circle, box) : bool
+  +{static} getCollisionNormal(box1, box2) : Vector2f
+}
+
+' NEW STEP 2: Gameplay Classes
+
+ABSTRACT class Paddle {
+  -speed : float
+  --
+  +Paddle(x, y, width, height)
+  +update(deltaTime) : void override
+  +moveLeft() : void
+  +moveRight() : void
+  +reset() : void
+}
+
+ABSTRACT class Ball {
+  -speed : float
+  -isLaunched : bool
+  --
+  +Ball(x, y, radius)
+  +update(deltaTime) : void override
+  +launch(vx, vy) : void
+  +reset() : void
+  +onCollision(obj, normal) : void
+}
+
+ABSTRACT class Brick {
+  -health : int
+  -pointValue : int
+  -isDestroyed : bool
+  --
+  +Brick(x, y, width, height)
+  +update(deltaTime) : void override
+  +takeDamage(damage) : void
+  +isAlive() : bool
+  +getPoints() : int
+  +render(window) : void override
+}
+
+class Scene {
+  -paddle : Paddle*
+  -ball : Ball*
+  -bricks : vector<Brick*>
+  -score : int
+  -level : int
+  -isGameOver : bool
+  --
+  +Scene()
+  +~Scene()
+  +init() : void
+  +update(deltaTime) : void
+  +render(window) : void
+  +getScore() : int
+  +isGameWon() : bool
+  +isGameLost() : bool
+  -initializePaddle() : void
+  -initializeBall() : void
+  -initializeBricks() : void
+  -updateCollisions() : void
+}
+
+class ScoreManager {
+  -currentScore : int
+  -highScore : int
+  -scoreMultiplier : float
+  --
+  +{static} getInstance() : ScoreManager&
+  +addScore(points) : void
+  +getScore() : int
+  +getHighScore() : int
+  +resetScore() : void
+  +loadHighScore() : void
+  +saveHighScore() : void
+  -ScoreManager()
+}
+
+' Relationships: Step 1 Components
+GameObject --> ShapeType : uses
+GameObject --> AABB : has
+Game --> GameObject : manages
+Game --> InputManager : uses
+Game --> CollisionDetector : uses
+
+' Relationships: Step 2 Additions
+Paddle --|> GameObject : extends
+Ball --|> GameObject : extends
+Brick --|> GameObject : extends
+
+Game --> Scene : manages
+Scene --> Paddle : owns
+Scene --> Ball : owns
+Scene --> Brick : owns many
+Scene --> CollisionDetector : uses
+Scene --> ScoreManager : uses
+
+Ball --> Paddle : collides with
+Ball --> Brick : collides with
+ScoreManager --> Brick : queries points
+
+' Notes
+note right of Paddle
+  Player-controlled paddle.
+  Moves left/right based on input.
+  Bounces the ball.
+end note
+
+note right of Ball
+  Game ball.
+  Starts attached to paddle,
+  launches on input, bounces on collisions.
+end note
+
+note right of Brick
+  Destructible brick.
+  Health system, award points
+  when destroyed.
+end note
+
+note right of Scene
+  NEW: Manages all gameplay objects.
+  Handles level state, collisions,
+  win/lose conditions.
+end note
+
+note right of ScoreManager
+  NEW: Singleton for score tracking.
+  Handles high score persistence.
+end note
+
+note bottom of Paddle
+  Paddle, Ball and Brick all inherit from GameObject
+  and override update/render methods
+end note
+
+@enduml
