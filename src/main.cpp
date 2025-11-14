@@ -15,12 +15,12 @@ int main()
         // run main loop
         game.run();
         
-        std::cout << "Game shut down successfully" << std::endl;
+        std::cout << "game shut down successfully" << std::endl;
         return 0;
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Fatal error: " << e.what() << std::endl;
+        std::cerr << "fatal error: " << e.what() << std::endl;
         return 1;
     }
     
