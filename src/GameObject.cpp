@@ -13,25 +13,28 @@ GameObject::GameObject(float x, float y, float width, float height, ShapeType sh
       shapesInitialized(false)
 {
     // initialize collision box based on size and position
-    // log creation "GameObject created at (x, y) with size (w, h)"
+    std::cout << "GameObject created at (" << x << ", " << y << ") with size (" << width << ", " << height << ")" << std::endl;
     updateCollisionBox();
 }
 
 // destructor
 GameObject::~GameObject()
 {
-    // log destruction
+    std::cout << "GameObject destroyed at (" << position.x << ", " << position.y << ")" << std::endl;
 }
 
 // update position based on velocity and delta time
 void GameObject::update(float deltaTime)
 {
     // check deltaTime is valid (>= 0)
-    
-    // update position based on velocity
-    // position += velocity * deltaTime
-    // position.x += velocity.x * deltaTime
-    // position.y += velocity.y * deltaTime
+    if (deltaTime < 0.0f) {
+        std::cerr << "warning: negative deltaTime in GameObject::update" << std::endl;
+        return;
+    }
+
+    // update position based on velocity and delta time
+    position.x += velocity.x * deltaTime;
+    position.y += velocity.y * deltaTime;
     
     // update collision box to match new position
     updateCollisionBox();
@@ -41,49 +44,62 @@ void GameObject::update(float deltaTime)
 void GameObject::render(sf::RenderWindow& window)
 {
     // initialize shapes on first render (lazy initialization)
-    // if (!shapesInitialized) initializeShapes()
-    
-    // update shape position and rotation to match GameObject
-    // shape.setPosition(position.x - size.x/2, position.y - size.y/2)
-    // shape.setRotation(rotation)
-    // shape.setFillColor(color)
+    if (!shapesInitialized) initializeShapes();
     
     // draw appropriate shape based on shapeType
-    // if (shapeType == ShapeType::CIRCLE)
-    //     window.draw(circleShape)
-    // else
-    //     window.draw(rectangleShape)
+    // update shape position and rotation to match GameObject
+    if (shapeType == ShapeType::CIRCLE) {
+        circleShape.setPosition(position.x - size.x/2, position.y - size.y/2);
+        circleShape.setRotation(rotation);
+        circleShape.setFillColor(color);
+        window.draw(circleShape);
+    } else {
+        rectangleShape.setPosition(position.x - size.x/2, position.y - size.y/2);
+        rectangleShape.setRotation(rotation);
+        rectangleShape.setFillColor(color); 
+        window.draw(rectangleShape);
+    }
 }
 
-// initialize SFML shapes (called once)
+// initialize SFML shapes 
 void GameObject::initializeShapes()
 {
-    // create circle shape if needed
-    // if (shapeType == ShapeType::CIRCLE)
-    //     circleShape.setRadius(size.x / 2)
+    if (shapesInitialized) return;  // early exit if already initialized
+
+    switch (shapeType) {
+        case ShapeType::CIRCLE:
+            circleShape.setRadius(size.x / 2);
+            circleShape.setOrigin(size.x / 2, size.y / 2);  // center the origin
+            break;
+        case ShapeType::RECTANGLE:
+            rectangleShape.setSize(sf::Vector2f(size.x, size.y));
+            rectangleShape.setOrigin(size.x / 2, size.y / 2);  // center the origin
+            break;
+        default:
+            throw std::runtime_error("invalid shape type");
+    }
     
-    // create rectangle shape if needed
-    // if (shapeType == ShapeType::RECTANGLE)
-    //     rectangleShape.setSize(size)
-    
-    // set initial color on both shapes
-    // circleShape.setFillColor(color)
-    // rectangleShape.setFillColor(color)
-    
-    // shapesInitialized = true
+    shapesInitialized = true;
 }
 
 // update collision box based on current position and size
 void GameObject::updateCollisionBox()
 {
     // create AABB that represents the object's bounds
-    // for circle: box centered on position, size = diameter
-    // for rectangle: box positioned at position, size = size
-    
-    // collisionBox.x = position.x - size.x / 2
-    // collisionBox.y = position.y - size.y / 2
-    // collisionBox.width = size.x
-    // collisionBox.height = size.y
+    if (shapeType == ShapeType::CIRCLE) {
+        // for circles: box centered on position, size = diameter
+        float radius = size.x / 2;
+        collisionBox.x = position.x - radius;
+        collisionBox.y = position.y - radius;
+        collisionBox.width = size.x;
+        collisionBox.height = size.y;
+    } else {
+        // for rectangle: box positioned at position, size = size
+        collisionBox.x = position.x - size.x / 2;
+        collisionBox.y = position.y - size.y / 2;
+        collisionBox.width = size.x;
+        collisionBox.height = size.y;
+    }
 }
 
 // getters
