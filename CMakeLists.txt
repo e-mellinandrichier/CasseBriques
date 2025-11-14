@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(CasseBriques
     VERSION 0.1.0
-    DESCRIPTION "SFML Brick Breaker project for learning purposes"
+    DESCRIPTION "SFML Brick Breaker"
     LANGUAGES CXX
 )
 
