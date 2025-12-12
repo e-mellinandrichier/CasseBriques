@@ -8,13 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/abdel/Desktop/BreakOut/src/Ball.cpp" "CMakeFiles/BreakOut.dir/src/Ball.cpp.obj" "gcc" "CMakeFiles/BreakOut.dir/src/Ball.cpp.obj.d"
-  "C:/Users/abdel/Desktop/BreakOut/src/Brick.cpp" "CMakeFiles/BreakOut.dir/src/Brick.cpp.obj" "gcc" "CMakeFiles/BreakOut.dir/src/Brick.cpp.obj.d"
-  "C:/Users/abdel/Desktop/BreakOut/src/Game.cpp" "CMakeFiles/BreakOut.dir/src/Game.cpp.obj" "gcc" "CMakeFiles/BreakOut.dir/src/Game.cpp.obj.d"
-  "C:/Users/abdel/Desktop/BreakOut/src/GameObject.cpp" "CMakeFiles/BreakOut.dir/src/GameObject.cpp.obj" "gcc" "CMakeFiles/BreakOut.dir/src/GameObject.cpp.obj.d"
-  "C:/Users/abdel/Desktop/BreakOut/src/Menu.cpp" "CMakeFiles/BreakOut.dir/src/Menu.cpp.obj" "gcc" "CMakeFiles/BreakOut.dir/src/Menu.cpp.obj.d"
-  "C:/Users/abdel/Desktop/BreakOut/src/Paddle.cpp" "CMakeFiles/BreakOut.dir/src/Paddle.cpp.obj" "gcc" "CMakeFiles/BreakOut.dir/src/Paddle.cpp.obj.d"
-  "C:/Users/abdel/Desktop/BreakOut/src/main.cpp" "CMakeFiles/BreakOut.dir/src/main.cpp.obj" "gcc" "CMakeFiles/BreakOut.dir/src/main.cpp.obj.d"
+  "/Users/melli/Code/CasseBriques/src/Ball.cpp" "CMakeFiles/BreakOut.dir/src/Ball.cpp.o" "gcc" "CMakeFiles/BreakOut.dir/src/Ball.cpp.o.d"
+  "/Users/melli/Code/CasseBriques/src/Brick.cpp" "CMakeFiles/BreakOut.dir/src/Brick.cpp.o" "gcc" "CMakeFiles/BreakOut.dir/src/Brick.cpp.o.d"
+  "/Users/melli/Code/CasseBriques/src/Game.cpp" "CMakeFiles/BreakOut.dir/src/Game.cpp.o" "gcc" "CMakeFiles/BreakOut.dir/src/Game.cpp.o.d"
+  "/Users/melli/Code/CasseBriques/src/GameObject.cpp" "CMakeFiles/BreakOut.dir/src/GameObject.cpp.o" "gcc" "CMakeFiles/BreakOut.dir/src/GameObject.cpp.o.d"
+  "/Users/melli/Code/CasseBriques/src/Menu.cpp" "CMakeFiles/BreakOut.dir/src/Menu.cpp.o" "gcc" "CMakeFiles/BreakOut.dir/src/Menu.cpp.o.d"
+  "/Users/melli/Code/CasseBriques/src/Paddle.cpp" "CMakeFiles/BreakOut.dir/src/Paddle.cpp.o" "gcc" "CMakeFiles/BreakOut.dir/src/Paddle.cpp.o.d"
+  "/Users/melli/Code/CasseBriques/src/main.cpp" "CMakeFiles/BreakOut.dir/src/main.cpp.o" "gcc" "CMakeFiles/BreakOut.dir/src/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

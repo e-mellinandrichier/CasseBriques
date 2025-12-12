@@ -1,41 +1,50 @@
-#include "../include/Paddle.hpp"
-#include <SFML/Window/Keyboard.hpp>
+#include "Paddle.h"
 
-Paddle::Paddle(const sf::Texture& texture, float X, float Y)
-    : GameObject(texture), speed(300.f)
+Paddle::Paddle(float x, float y, float width, float height)
+    : GameObject(x, y, width, height)
 {
-    sprite.setPosition(X, Y);
-    sprite.setScale(0.15f,0.15f);
+    m_shape.setSize(sf::Vector2f(width, height));
+    m_shape.setPosition(x, y);
+    m_shape.setFillColor(sf::Color::White);
+    m_shape.setOutlineColor(sf::Color::Cyan);
+    m_shape.setOutlineThickness(2.f);
 }
 
-void Paddle::update(float time)
+void Paddle::update(float deltaTime)
 {
-    float move = 0.f;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    // Apply movement
+    m_velocity.x = m_moveSpeed;
+    GameObject::update(deltaTime);
+    
+    // Update shape position
+    m_shape.setPosition(m_position.x, m_position.y);
+}
+
+void Paddle::draw(sf::RenderWindow& window) const
+{
+    window.draw(m_shape);
+}
+
+void Paddle::moveLeft(float speed)
+{
+    m_moveSpeed = -speed;
+    if (m_moveSpeed < -m_maxSpeed)
     {
-        move -= speed * time;
+        m_moveSpeed = -m_maxSpeed;
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+}
+
+void Paddle::moveRight(float speed)
+{
+    m_moveSpeed = speed;
+    if (m_moveSpeed > m_maxSpeed)
     {
-        move += speed * time;
+        m_moveSpeed = m_maxSpeed;
     }
-
-    sf::Vector2f pos = sprite.getPosition();
-    pos.x += move;
-
-    if (pos.x < 0) pos.x = 0;
-    if (pos.x + sprite.getGlobalBounds().width > 1024)
-        pos.x = 1024 - sprite.getGlobalBounds().width;
-
-    sprite.setPosition(pos);
 }
 
-void Paddle::setSpeed(float s)
+void Paddle::stop()
 {
-    speed = s;
+    m_moveSpeed = 0.f;
 }
 
-float Paddle::getSpeed() const
-{
-    return speed;
-}

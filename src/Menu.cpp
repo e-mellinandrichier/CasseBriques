@@ -1,224 +1,246 @@
-#include "../include/Menu.hpp"
-#include <cmath>
+#include "Menu.h"
 #include <iostream>
 
-// Constantes de layout ajustées pour un meilleur centrage
-const float MENU_ITEM_START_Y = 380.f; // Point de départ plus haut et bien centré
-const float MENU_ITEM_SPACING_Y = 70.f; // Espacement vertical optimisé pour 4 options
-
-Menu::Menu(sf::Font& f, int w, int h)
-    : font(f), width(w), height(h), selectedMenuItem(0), animationTime(0.f)
+Menu::Menu(sf::RenderWindow& window)
+    : m_window(window)
 {
-    // TITRE - Style grand et impactant, avec une touche holographique
-    titleText.setFont(font);
-    titleText.setCharacterSize(100);
-    titleText.setFillColor(sf::Color(255, 255, 255)); 
-    titleText.setOutlineColor(sf::Color(0, 180, 255, 150)); // Cyan clair
-    titleText.setOutlineThickness(3.f);
-    titleText.setString("CASSE-BRIQUE");
-    titleText.setStyle(sf::Text::Bold);
-    titleText.setLetterSpacing(1.f);
-    auto bounds = titleText.getLocalBounds();
-    titleText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-    titleText.setPosition(width / 2.f, 150.f); // Monté
-
-    // SUBTITLE - Discret et technique
-    subtitleText.setFont(font);
-    subtitleText.setCharacterSize(18);
-    subtitleText.setFillColor(sf::Color(100, 150, 200, 200));
-    subtitleText.setString("// PROJET LAPLATEFORME EDITION //");
-    subtitleText.setLetterSpacing(4.f);
-    bounds = subtitleText.getLocalBounds();
-    subtitleText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-    subtitleText.setPosition(width / 2.f, 250.f);
-
-    // INSTRUCTIONS
-    instructionsText.setFont(font);
-    instructionsText.setCharacterSize(14);
-    instructionsText.setFillColor(sf::Color(80, 120, 180, 180));
-    instructionsText.setString("UTILISEZ LES FLECHES | ENTREE POUR ACTIVER");
-    instructionsText.setLetterSpacing(1.5f);
-    bounds = instructionsText.getLocalBounds();
-    instructionsText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-    instructionsText.setPosition(width / 2.f, height - 30.f);
-
-    // MEILLEUR SCORE - Positionné en bas à droite pour équilibrer
-    bestScoreLabel.setFont(font);
-    bestScoreLabel.setCharacterSize(14);
-    bestScoreLabel.setFillColor(sf::Color(150, 150, 200));
-    bestScoreLabel.setString("RECORD ACTUEL");
-    bestScoreLabel.setLetterSpacing(3.f);
-    bounds = bestScoreLabel.getLocalBounds();
-    bestScoreLabel.setOrigin(bounds.width, bounds.height); 
-    bestScoreLabel.setPosition(width - 40.f, height - 90.f);
-
-    bestScoreValue.setFont(font);
-    bestScoreValue.setCharacterSize(40);
-    bestScoreValue.setFillColor(sf::Color(0, 255, 255)); // Cyan brillant
-    bestScoreValue.setString("25.600");
-    bestScoreValue.setStyle(sf::Text::Bold);
-    bestScoreValue.setLetterSpacing(2.f);
-    bounds = bestScoreValue.getLocalBounds();
-    bestScoreValue.setOrigin(bounds.width, bounds.height); 
-    bestScoreValue.setPosition(width - 40.f, height - 40.f);
-    
-    // **********************************************
-    // OPTIONS DU MENU
-    // **********************************************
-    
-    // Initialisation des textes des options (taille et police communes)
-    sf::Text* menuItems[] = {&playText, &optionsText, &creditsText, &quitText};
-    std::string itemStrings[] = {"[ DEMARRER LA SIMULATION ]", "[ OUVRIR LES OPTIONS ]", "[ CREDITS ]", "[ SORTIR DU PROTOCOL ]"};
-
-    for (int i = 0; i < 4; ++i) {
-        menuItems[i]->setFont(font);
-        menuItems[i]->setCharacterSize(36); // Taille lisible
-        menuItems[i]->setString(itemStrings[i]);
-        menuItems[i]->setLetterSpacing(1.5f);
-        
-        // Positionnement vertical
-        float yPos = MENU_ITEM_START_Y + MENU_ITEM_SPACING_Y * i;
-        
-        bounds = menuItems[i]->getLocalBounds();
-        menuItems[i]->setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-        menuItems[i]->setPosition(width / 2.f, yPos);
-    }
-
-    // PARTICULES - Ambiance subtile
-    for (int i = 0; i < 180; ++i) {
-        Star star;
-        star.position = sf::Vector2f(
-            static_cast<float>(rand() % width),
-            static_cast<float>(rand() % height)
-        );
-        star.size = 0.5f + static_cast<float>(rand() % 3) * 0.5f;
-        star.speed = 0.5f + static_cast<float>(rand() % 100) / 100.f;
-        star.alpha = 50 + rand() % 80; 
-        stars.push_back(star);
-    }
+    setupMenuItems();
 }
 
-void Menu::update(float dt)
+void Menu::setupMenuItems()
 {
-    animationTime += dt;
+    sf::Vector2u windowSize = m_window.getSize();
+    float centerX = windowSize.x / 2.f;
+    float startY = windowSize.y / 2.f;
+    
+    // Play item - Green rectangle with play symbol (triangle)
+    MenuItem playItem;
+    playItem.shape.setSize(sf::Vector2f(250.f, 70.f));
+    playItem.shape.setFillColor(sf::Color(50, 200, 50));
+    playItem.shape.setOutlineColor(sf::Color::White);
+    playItem.shape.setOutlineThickness(3.f);
+    playItem.shape.setPosition(centerX - 125.f, startY - 50.f);
+    playItem.action = MenuResult::Play;
+    playItem.isSelected = true;
+    
+    // Empty label (won't display without font, but structure is there)
+    playItem.label.setString("");
+    playItem.label.setCharacterSize(40);
+    
+    m_menuItems.push_back(playItem);
+    
+    // Exit item - Red rectangle with X symbol
+    MenuItem exitItem;
+    exitItem.shape.setSize(sf::Vector2f(250.f, 70.f));
+    exitItem.shape.setFillColor(sf::Color(200, 50, 50));
+    exitItem.shape.setOutlineColor(sf::Color::White);
+    exitItem.shape.setOutlineThickness(2.f);
+    exitItem.shape.setPosition(centerX - 125.f, startY + 50.f);
+    exitItem.action = MenuResult::Exit;
+    exitItem.isSelected = false;
+    
+    exitItem.label.setString("");
+    exitItem.label.setCharacterSize(40);
+    
+    m_menuItems.push_back(exitItem);
+    
+    updateSelection();
+}
 
-    // Animation des étoiles (scintillement subtil)
-    for (auto& star : stars) {
-        star.alpha = static_cast<sf::Uint8>(
-            80 + 40 * std::sin(animationTime * star.speed + star.position.x * 0.01f)
-        );
+Menu::MenuResult Menu::show()
+{
+    while (m_window.isOpen())
+    {
+        sf::Event event;
+        while (m_window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                return MenuResult::Exit;
+            }
+            
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::Up)
+                {
+                    moveUp();
+                }
+                else if (event.key.code == sf::Keyboard::Down)
+                {
+                    moveDown();
+                }
+                else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
+                {
+                    return getCurrentAction();
+                }
+                else if (event.key.code == sf::Keyboard::Escape)
+                {
+                    return MenuResult::Exit;
+                }
+            }
+        }
+        
+        draw();
+        m_window.display();
     }
+    
+    return MenuResult::Exit;
+}
 
-    // Animation du titre - Effet de pulsation très subtil sur le contour
-    float pulse = 1.0f + 0.05f * std::sin(animationTime * 1.5f);
-    titleText.setScale(pulse, pulse);
-
-    // Mise à jour des styles des textes du menu
-    sf::Text* menuItems[] = {&playText, &optionsText, &creditsText, &quitText};
-    for(int i = 0; i < 4; ++i) {
-        if (i == selectedMenuItem) {
-            // Effet Holographique (texte vif et contour lumineux)
-            menuItems[i]->setFillColor(sf::Color(0, 255, 255)); // Cyan vif
-            menuItems[i]->setOutlineThickness(1.5f);
-            menuItems[i]->setOutlineColor(sf::Color(255, 255, 255, 180));
-        } else {
-            // Texte inactif
-            menuItems[i]->setFillColor(sf::Color(100, 150, 200)); // Bleu gris
-            menuItems[i]->setOutlineThickness(0.f);
+void Menu::draw()
+{
+    m_window.clear(sf::Color::Black);
+    
+    sf::Vector2u windowSize = m_window.getSize();
+    
+    // Draw title background
+    sf::RectangleShape titleBg(sf::Vector2f(windowSize.x, 140.f));
+    titleBg.setFillColor(sf::Color(20, 20, 40));
+    titleBg.setPosition(0.f, 0.f);
+    m_window.draw(titleBg);
+    
+    // Draw title using visual blocks (representing "CASSE-BRIQUES")
+    float titleX = windowSize.x / 2.f - 200.f;
+    float titleY = 40.f;
+    
+    // Draw decorative title blocks
+    for (int i = 0; i < 12; ++i)
+    {
+        sf::RectangleShape block(sf::Vector2f(25.f, 60.f));
+        block.setFillColor(sf::Color::Cyan);
+        block.setPosition(titleX + i * 35.f, titleY);
+        if (i % 2 == 0) // Alternate pattern
+        {
+            block.setSize(sf::Vector2f(25.f, 60.f));
+        }
+        else
+        {
+            block.setSize(sf::Vector2f(25.f, 50.f));
+        }
+        m_window.draw(block);
+    }
+    
+    // Draw title line
+    sf::RectangleShape titleLine(sf::Vector2f(450.f, 4.f));
+    titleLine.setFillColor(sf::Color::Cyan);
+    titleLine.setPosition(windowSize.x / 2.f - 225.f, 110.f);
+    m_window.draw(titleLine);
+    
+    // Draw menu items
+    for (size_t i = 0; i < m_menuItems.size(); ++i)
+    {
+        auto& item = m_menuItems[i];
+        
+        // Draw selection indicator (triangle on left)
+        if (item.isSelected)
+        {
+            // Draw yellow triangle pointing right
+            sf::CircleShape indicator(15.f, 3);
+            indicator.setFillColor(sf::Color::Yellow);
+            indicator.setRotation(90.f);
+            indicator.setPosition(item.shape.getPosition().x - 30.f, item.shape.getPosition().y + 20.f);
+            m_window.draw(indicator);
+            
+            // Make selected item brighter and thicker outline
+            item.shape.setOutlineThickness(5.f);
+            item.shape.setOutlineColor(sf::Color::Yellow);
+        }
+        else
+        {
+            item.shape.setOutlineThickness(2.f);
+            item.shape.setOutlineColor(sf::Color::White);
+        }
+        
+        m_window.draw(item.shape);
+        
+        // Draw visual symbols inside buttons
+        if (i == 0) // Play button
+        {
+            // Draw play triangle (pointing right) - centered
+            float centerX = item.shape.getPosition().x + item.shape.getSize().x / 2.f;
+            float centerY = item.shape.getPosition().y + item.shape.getSize().y / 2.f;
+            sf::CircleShape playTriangle(20.f, 3);
+            playTriangle.setFillColor(sf::Color::White);
+            playTriangle.setRotation(90.f);
+            playTriangle.setOrigin(20.f, 20.f); // Set origin to center
+            playTriangle.setPosition(centerX, centerY);
+            m_window.draw(playTriangle);
+        }
+        else // Exit button
+        {
+            // Draw X symbol using lines
+            float centerX = item.shape.getPosition().x + item.shape.getSize().x / 2.f;
+            float centerY = item.shape.getPosition().y + item.shape.getSize().y / 2.f;
+            
+            // Draw X with rectangles
+            sf::RectangleShape line1(sf::Vector2f(40.f, 4.f));
+            line1.setFillColor(sf::Color::White);
+            line1.setRotation(45.f);
+            line1.setPosition(centerX - 20.f, centerY - 2.f);
+            m_window.draw(line1);
+            
+            sf::RectangleShape line2(sf::Vector2f(40.f, 4.f));
+            line2.setFillColor(sf::Color::White);
+            line2.setRotation(-45.f);
+            line2.setPosition(centerX - 20.f, centerY - 2.f);
+            m_window.draw(line2);
         }
     }
+    
+    // Draw instructions area
+    sf::RectangleShape instBg(sf::Vector2f(windowSize.x, 80.f));
+    instBg.setFillColor(sf::Color(30, 30, 30));
+    instBg.setPosition(0.f, windowSize.y - 80.f);
+    m_window.draw(instBg);
+    
+    // Draw instruction arrows visually
+    float instX = windowSize.x / 2.f - 200.f;
+    float instY = windowSize.y - 50.f;
+    
+    // Up arrow
+    sf::CircleShape upArrow(12.f, 3);
+    upArrow.setFillColor(sf::Color(150, 150, 150));
+    upArrow.setRotation(0.f);
+    upArrow.setPosition(instX, instY);
+    m_window.draw(upArrow);
+    
+    // Down arrow
+    sf::CircleShape downArrow(12.f, 3);
+    downArrow.setFillColor(sf::Color(150, 150, 150));
+    downArrow.setRotation(180.f);
+    downArrow.setPosition(instX + 40.f, instY);
+    m_window.draw(downArrow);
+    
+    // Draw instruction boxes
+    sf::RectangleShape enterBox(sf::Vector2f(60.f, 25.f));
+    enterBox.setFillColor(sf::Color(100, 100, 100));
+    enterBox.setOutlineColor(sf::Color::White);
+    enterBox.setOutlineThickness(1.f);
+    enterBox.setPosition(instX + 100.f, instY - 5.f);
+    m_window.draw(enterBox);
 }
 
-void Menu::draw(sf::RenderWindow& window)
+void Menu::moveUp()
 {
-    // BACKGROUND - Noir profond (Espace)
-    window.clear(sf::Color(5, 5, 20)); 
-
-    // EFFET DE GLOW ARRIÈRE-PLAN CENTRÉ (Holographique)
-    sf::CircleShape centralGlow(width / 3.f);
-    centralGlow.setOrigin(centralGlow.getRadius(), centralGlow.getRadius());
-    centralGlow.setPosition(width / 2.f, height / 2.f);
-    centralGlow.setFillColor(sf::Color(0, 50, 80, 50)); // Bleu sombre très transparent
-    window.draw(centralGlow);
-
-    // ÉTOILES / PARTICULES
-    for (const auto& star : stars) {
-        sf::CircleShape starShape(star.size);
-        starShape.setPosition(star.position);
-        starShape.setFillColor(sf::Color(150, 200, 255, star.alpha));
-        window.draw(starShape);
-    }
-    
-    // CADRE DÉCORATIF HOLOGRAPHIQUE (Lignes)
-    sf::RectangleShape lineVertical(sf::Vector2f(2.f, 400.f));
-    lineVertical.setOrigin(1.f, 200.f);
-    lineVertical.setPosition(width / 2.f, height / 2.f + 50.f);
-    lineVertical.setFillColor(sf::Color(0, 180, 255, 100)); 
-    window.draw(lineVertical);
-
-    // TITRE et SUBTITLE
-    window.draw(titleText);
-    window.draw(subtitleText);
-
-    // EFFET DE SÉLECTION (Hologramme)
-    if (selectedMenuItem != -1) {
-        sf::Text* menuItems[] = {&playText, &optionsText, &creditsText, &quitText};
-        
-        // Cadre autour de l'élément sélectionné
-        sf::FloatRect textBounds = menuItems[selectedMenuItem]->getGlobalBounds();
-        sf::Vector2f center = menuItems[selectedMenuItem]->getPosition();
-        float textWidth = textBounds.width;
-        float textHeight = textBounds.height;
-
-        // Le contour holographique
-        sf::RectangleShape highlight(sf::Vector2f(textWidth + 40.f, textHeight + 20.f));
-        highlight.setOrigin((textWidth + 40.f) / 2.f, (textHeight + 20.f) / 2.f);
-        highlight.setPosition(center.x, center.y);
-        highlight.setFillColor(sf::Color(0, 255, 255, 20)); // Remplissage très transparent
-        highlight.setOutlineThickness(2.f);
-        
-        // Pulsation du contour
-        sf::Uint8 pulseAlpha = static_cast<sf::Uint8>(100 + 100 * (0.5f + 0.5f * std::sin(animationTime * 5.f)));
-        highlight.setOutlineColor(sf::Color(0, 255, 255, pulseAlpha));
-        window.draw(highlight);
-    }
-    
-    // DESSINER LES TEXTES DES OPTIONS
-    window.draw(playText);
-    window.draw(optionsText);
-    window.draw(creditsText);
-    window.draw(quitText);
-
-    // MEILLEUR SCORE (Encadré discret)
-    sf::RectangleShape scorePanel(sf::Vector2f(200, 80));
-    scorePanel.setOrigin(200, 80);
-    scorePanel.setPosition(width - 20.f, height - 20.f);
-    scorePanel.setFillColor(sf::Color(10, 10, 30, 180)); 
-    scorePanel.setOutlineThickness(1.f);
-    scorePanel.setOutlineColor(sf::Color(0, 150, 255, 100));
-    window.draw(scorePanel);
-
-    window.draw(bestScoreLabel);
-    window.draw(bestScoreValue);
-
-    // INSTRUCTIONS
-    window.draw(instructionsText);
+    m_selectedItemIndex = (m_selectedItemIndex - 1 + m_menuItems.size()) % m_menuItems.size();
+    updateSelection();
 }
 
-Menu::Action Menu::handleEvent(const sf::Event& event)
+void Menu::moveDown()
 {
-    const int numItems = 4; // 4 éléments: Play, Options, Credits, Quit
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Up) {
-            selectedMenuItem = (selectedMenuItem - 1 + numItems) % numItems;
-        } else if (event.key.code == sf::Keyboard::Down) {
-            selectedMenuItem = (selectedMenuItem + 1) % numItems;
-        } else if (event.key.code == sf::Keyboard::Enter || event.key.code == sf::Keyboard::Space) {
-            if (selectedMenuItem == 0) return Action::Start;
-            else if (selectedMenuItem == 1) return Action::Options;
-            else if (selectedMenuItem == 2) return Action::Credits;
-            else return Action::Quit;
-        }
+    m_selectedItemIndex = (m_selectedItemIndex + 1) % m_menuItems.size();
+    updateSelection();
+}
+
+void Menu::updateSelection()
+{
+    for (size_t i = 0; i < m_menuItems.size(); ++i)
+    {
+        m_menuItems[i].isSelected = (i == m_selectedItemIndex);
     }
-    return Action::None;
+}
+
+Menu::MenuResult Menu::getCurrentAction() const
+{
+    return m_menuItems[m_selectedItemIndex].action;
 }

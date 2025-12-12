@@ -1,120 +1,130 @@
-#include <iostream>
-#include "../include/Ball.hpp"
-#include "../include/Brick.hpp"
+#include "Ball.h"
 #include <cmath>
+#include <algorithm>
 
-
-Ball::Ball(const sf::Texture& texture, float X, float Y)
-    : GameObject(texture), speed (250.f), direction(0.7f,1.0f)
+Ball::Ball(float x, float y, float radius, const sf::Vector2f& velocity)
+    : GameObject(x, y, radius * 2.f, radius * 2.f)
+    , m_radius(radius)
+    , m_speed(std::sqrt(velocity.x * velocity.x + velocity.y * velocity.y))
 {
-    sprite.setPosition(X,Y);
-    sprite.setScale(0.08f,0.08f);
-}
-
-
-void Ball::update(float time)
-{
-    float move = speed * time; 
-
-    sf::Vector2f pos = sprite.getPosition();
-    pos.x += direction.x * move;
-    pos.y += direction.y * move;
-
-    if(pos.x <= 0 || pos.x + sprite.getGlobalBounds().width >= 1024)
-    direction.x = -direction.x;
-
-    if(pos.y <= 0 || pos.y + sprite.getGlobalBounds().height >= 768)
-    direction.y = -direction.y;
-
-    sprite.setPosition(pos);
-}
-
-void Ball::setSpeed(float s)
-{
-    speed = s;
-}
-
-float Ball::getSpeed() const
-{
-    return speed;
-}
-
-void Ball::checkCollisionPaddle(const Paddle& paddle) {
-    if (sprite.getGlobalBounds().intersects(paddle.getHitbox())) {
-        
-        float paddleCenter = paddle.getHitbox().left + paddle.getHitbox().width / 2.f;
-
-        float ballCenter = sprite.getPosition().x + sprite.getGlobalBounds().width / 2.f;
-        
-        float offset = (ballCenter - paddleCenter) / (paddle.getHitbox().width / 2.f);
-
-        direction.x = offset;
-        
-        direction.y *= -1;
-        
-        float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-        direction.x /= length;
-        direction.y /= length;
-        sf::Vector2f pos = sprite.getPosition();
-        pos.y = paddle.getHitbox().top - sprite.getGlobalBounds().height;
-        sprite.setPosition(pos);
+    m_shape.setRadius(radius);
+    m_shape.setOrigin(radius, radius);
+    m_shape.setFillColor(sf::Color::White);
+    m_shape.setPosition(x + radius, y + radius);
+    
+    // Normalize velocity and scale by speed
+    float length = std::sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+    if (length > 0.f)
+    {
+        m_velocity = sf::Vector2f(velocity.x / length * m_speed, velocity.y / length * m_speed);
     }
 }
 
-bool Ball::checkCollisionBrick(Brick& brick) {
-    if(brick.isDestroyed()) return false;
-    
-    sf::FloatRect ballRect = sprite.getGlobalBounds();
-    sf::FloatRect brickRect = brick.getHitbox();
-    sf::FloatRect intersection;
-
-    if (ballRect.intersects(brickRect, intersection)) {
-        brick.hit();
-        
-        float brickCenter = brickRect.left + brickRect.width / 2.f;
-        float ballCenter  = ballRect.left + ballRect.width / 2.f;
-        float offset = 0.f;
-
-        if (brickRect.width > 0.f)
-            offset = (ballCenter - brickCenter) / (brickRect.width / 2.f);
-
-        offset = std::clamp(offset, -1.f, 1.f);
-
-        direction.x = offset;
-
-        bool hitFromTop = (ballRect.top + ballRect.height) <= (brickRect.top + intersection.height / 2.f);
-        bool hitFromBottom = (ballRect.top) >= (brickRect.top + brickRect.height - intersection.height / 2.f);
-
-        if (hitFromTop) {
-            direction.y = -std::abs(direction.y);
-
-            sprite.setPosition(ballRect.left, brickRect.top - ballRect.height - 0.01f);
-        }
-        else if (hitFromBottom) {
-            direction.y = std::abs(direction.y);
-
-            sprite.setPosition(ballRect.left, brickRect.top + brickRect.height + 0.01f);
-        }
-        else {
-            direction.y = -direction.y;
-        }
-
-        float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-        if (length > 0.f) {
-            direction.x /= length;
-            direction.y /= length;
-        }
-        
-        return true;
+void Ball::update(float deltaTime)
+{
+    // Apply gravity only if enabled
+    if (m_gravityEnabled)
+    {
+        m_velocity.y += m_gravity * deltaTime;
     }
     
-    return false;
+    GameObject::update(deltaTime);
+    m_shape.setPosition(m_position.x + m_radius, m_position.y + m_radius);
 }
 
-void Ball::reverseY() {
-    direction.y = -direction.y;
+void Ball::draw(sf::RenderWindow& window) const
+{
+    window.draw(m_shape);
 }
 
-sf::FloatRect Ball::getHitbox() const {
-    return sprite.getGlobalBounds();
+void Ball::bounceOffWalls(float windowWidth, float windowHeight)
+{
+    float centerX = m_position.x + m_radius;
+    float centerY = m_position.y + m_radius;
+
+    // Left wall
+    if (centerX - m_radius <= 0.f && m_velocity.x < 0.f)
+    {
+        m_velocity.x = -m_velocity.x;
+        m_position.x = m_radius;
+    }
+    // Right wall
+    else if (centerX + m_radius >= windowWidth && m_velocity.x > 0.f)
+    {
+        m_velocity.x = -m_velocity.x;
+        m_position.x = windowWidth - m_radius * 2.f;
+    }
+    // Top wall
+    if (centerY - m_radius <= 0.f && m_velocity.y < 0.f)
+    {
+        m_velocity.y = -m_velocity.y;
+        m_position.y = m_radius;
+    }
 }
+
+bool Ball::isOutOfBounds(float windowHeight) const
+{
+    return m_position.y + m_radius * 2.f > windowHeight;
+}
+
+sf::Vector2f Ball::getCenter() const
+{
+    return sf::Vector2f(m_position.x + m_radius, m_position.y + m_radius);
+}
+
+bool Ball::checkCollisionWithAABB(const sf::FloatRect& aabb)
+{
+    sf::Vector2f center = getCenter();
+    
+    // Find closest point on AABB to circle center
+    float closestX = std::max(aabb.left, std::min(center.x, aabb.left + aabb.width));
+    float closestY = std::max(aabb.top, std::min(center.y, aabb.top + aabb.height));
+    
+    // Calculate distance from circle center to closest point
+    float dx = center.x - closestX;
+    float dy = center.y - closestY;
+    float distanceSquared = dx * dx + dy * dy;
+    
+    return distanceSquared < (m_radius * m_radius);
+}
+
+void Ball::handleCollisionWithAABB(const sf::FloatRect& aabb)
+{
+    sf::Vector2f center = getCenter();
+    sf::Vector2f aabbCenter(aabb.left + aabb.width / 2.f, aabb.top + aabb.height / 2.f);
+    
+    // Determine collision side
+    float dx = center.x - aabbCenter.x;
+    float dy = center.y - aabbCenter.y;
+    
+    float overlapX = m_radius + aabb.width / 2.f - std::abs(dx);
+    float overlapY = m_radius + aabb.height / 2.f - std::abs(dy);
+    
+    if (overlapX < overlapY)
+    {
+        // Horizontal collision
+        m_velocity.x = -m_velocity.x;
+        if (dx > 0)
+        {
+            m_position.x = aabb.left + aabb.width + m_radius;
+        }
+        else
+        {
+            m_position.x = aabb.left - m_radius * 2.f;
+        }
+    }
+    else
+    {
+        // Vertical collision
+        m_velocity.y = -m_velocity.y;
+        if (dy > 0)
+        {
+            m_position.y = aabb.top + aabb.height + m_radius;
+        }
+        else
+        {
+            m_position.y = aabb.top - m_radius * 2.f;
+        }
+    }
+}
+

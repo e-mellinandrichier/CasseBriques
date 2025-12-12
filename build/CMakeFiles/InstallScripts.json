@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/Users/abdel/Desktop/BreakOut/build/cmake_install.cmake"
+		"/Users/melli/Code/CasseBriques/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }
