@@ -7,13 +7,11 @@ file(REMOVE_RECURSE
   "CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o.d"
   "CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o"
   "CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o.d"
-  "CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o"
-  "CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o.d"
   "CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o"
   "CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o.d"
   "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o"
   "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o.d"
-  "CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame"
+  "CasseBriquesGame"
   "CasseBriquesGame.pdb"
 )
 

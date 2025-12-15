@@ -1,4 +1,4 @@
-#include "Paddle.h"
+#include "Paddle.hpp"
 
 Paddle::Paddle(float x, float y, float width, float height)
     : GameObject(x, y, width, height)

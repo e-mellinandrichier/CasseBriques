@@ -1,4 +1,4 @@
-#include "Brick.h"
+#include "Brick.hpp"
 #include <algorithm>
 
 Brick::Brick(float x, float y, float width, float height, int maxHealth)

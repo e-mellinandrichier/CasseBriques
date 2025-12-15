@@ -1,0 +1,127 @@
+@startuml ClassDiagramStep2
+!theme plain
+
+' ============ BASE CLASS ============
+class GameObject {
+  # m_position : Vector2f
+  # m_velocity : Vector2f
+  # m_rotation : float
+  # m_size : Vector2f
+  --
+  + getPosition() : Vector2f
+  + setPosition(x, y) : void
+  + getVelocity() : Vector2f
+  + setVelocity(x, y) : void
+  + getSize() : Vector2f
+  + setSize(w, h) : void
+  + getAABB() : FloatRect
+  + checkCollision(other) : bool
+  + update(dt) : void
+  + draw(window) : void
+}
+
+' ============ GAMEPLAY CLASSES ============
+class Paddle {
+  - m_shape : RectangleShape
+  - m_moveSpeed : float
+  - m_maxSpeed : float (static)
+  --
+  + Paddle(x, y, width, height)
+  + update(dt) : void
+  + draw(window) : void
+  + moveLeft(speed) : void
+  + moveRight(speed) : void
+  + stop() : void
+  + getBounds() : FloatRect
+}
+
+class Ball {
+  - m_radius : float
+  - m_shape : CircleShape
+  - m_speed : float
+  - m_gravityEnabled : bool
+  - m_gravity : float (static)
+  --
+  + Ball(x, y, radius, velocity)
+  + update(dt) : void
+  + draw(window) : void
+  + getRadius() : float
+  + bounceOffWalls(w, h) : void
+  + isOutOfBounds(h) : bool
+  + checkCollisionWithAABB(aabb) : bool
+  + handleCollisionWithAABB(aabb) : void
+  + setGravityEnabled(enabled) : void
+}
+
+class Brick {
+  - m_health : int
+  - m_maxHealth : int
+  - m_shape : RectangleShape
+  --
+  + Brick(x, y, width, height, maxHealth)
+  + update(dt) : void
+  + draw(window) : void
+  + getHealth() : int
+  + getMaxHealth() : int
+  + isDestroyed() : bool
+  + takeDamage(damage) : void
+  + destroy() : void
+}
+
+' ============ MAIN GAME ============
+enum GameState {
+  MENU
+  PLAYING
+  GAME_OVER
+  VICTORY
+}
+
+class Game {
+  - window : RenderWindow
+  - paddle : Paddle ptr
+  - ball : Ball ptr
+  - bricks : vector Brick
+  - state : GameState
+  - lives : int
+  - score : int
+  - ballLaunched : bool
+  - clock : Clock
+  - font : Font
+  --
+  + Game()
+  + run() : int
+  - initializeGame() : void
+  - createBricks() : void
+  - resetBall() : void
+  - handleEvents() : void
+  - update(dt) : void
+  - draw() : void
+  - checkGameOver() : void
+}
+
+' ============ INPUT SYSTEM ============
+class InputManager {
+  - m_keyBindings : map
+  - m_mouseBindings : map
+  - m_mousePosition : Vector2i
+  - instance : InputManager (static)
+  --
+  + getInstance() : InputManager (static)
+  + processEvent(event) : void
+  + bindKey(key, callback) : void
+  + unbindKey(key) : void
+  + isKeyPressed(key) : bool
+}
+
+' ============ RELATIONSHIPS ============
+Paddle --|> GameObject : extends
+Ball --|> GameObject : extends
+Brick --|> GameObject : extends
+
+Game --> Paddle : owns
+Game --> Ball : owns
+Game --> Brick : owns *
+Game --> GameState : uses
+Game --> InputManager : uses
+
+@enduml

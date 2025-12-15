@@ -8,13 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/melli/Code/CasseBriques/src/Ball.cpp" "CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o.d"
-  "/Users/melli/Code/CasseBriques/src/Brick.cpp" "CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o.d"
-  "/Users/melli/Code/CasseBriques/src/GameObject.cpp" "CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o.d"
-  "/Users/melli/Code/CasseBriques/src/InputManager.cpp" "CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o.d"
-  "/Users/melli/Code/CasseBriques/src/Menu.cpp" "CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o.d"
-  "/Users/melli/Code/CasseBriques/src/Paddle.cpp" "CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o.d"
-  "/Users/melli/Code/CasseBriques/src/main.cpp" "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o.d"
+  "/home/nyxx/Projects/CasseBriques/src/Ball.cpp" "CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o.d"
+  "/home/nyxx/Projects/CasseBriques/src/Brick.cpp" "CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o.d"
+  "/home/nyxx/Projects/CasseBriques/src/GameObject.cpp" "CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o.d"
+  "/home/nyxx/Projects/CasseBriques/src/InputManager.cpp" "CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o.d"
+  "/home/nyxx/Projects/CasseBriques/src/Paddle.cpp" "CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o.d"
+  "/home/nyxx/Projects/CasseBriques/src/main.cpp" "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o" "gcc" "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
