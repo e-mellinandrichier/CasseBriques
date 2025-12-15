@@ -10,7 +10,6 @@
 #include "Brick.hpp"
 #include "Paddle.hpp"
 #include "Ball.hpp"
-#include "Menu.hpp"
 
 class Game {
 public:

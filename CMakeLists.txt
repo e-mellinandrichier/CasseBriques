@@ -35,7 +35,6 @@ add_executable(CasseBriquesGame
     src/Brick.cpp
     src/Paddle.cpp
     src/Ball.cpp
-    src/Menu.cpp
 )
 
 target_include_directories(CasseBriquesGame

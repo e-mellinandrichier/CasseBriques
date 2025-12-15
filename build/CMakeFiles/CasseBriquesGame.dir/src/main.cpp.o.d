@@ -280,5 +280,4 @@ CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o: \
  /usr/include/c++/13/array /usr/include/c++/13/compare \
  /home/nyxx/Projects/CasseBriques/include/Brick.hpp \
  /home/nyxx/Projects/CasseBriques/include/Paddle.hpp \
- /home/nyxx/Projects/CasseBriques/include/Ball.hpp \
- /home/nyxx/Projects/CasseBriques/include/Menu.hpp
+ /home/nyxx/Projects/CasseBriques/include/Ball.hpp

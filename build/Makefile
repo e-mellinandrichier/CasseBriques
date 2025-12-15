@@ -225,30 +225,6 @@ src/InputManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.s
 .PHONY : src/InputManager.cpp.s
 
-src/Menu.o: src/Menu.cpp.o
-.PHONY : src/Menu.o
-
-# target to build an object file
-src/Menu.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o
-.PHONY : src/Menu.cpp.o
-
-src/Menu.i: src/Menu.cpp.i
-.PHONY : src/Menu.i
-
-# target to preprocess a source file
-src/Menu.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.i
-.PHONY : src/Menu.cpp.i
-
-src/Menu.s: src/Menu.cpp.s
-.PHONY : src/Menu.s
-
-# target to generate assembly for a file
-src/Menu.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.s
-.PHONY : src/Menu.cpp.s
-
 src/Paddle.o: src/Paddle.cpp.o
 .PHONY : src/Paddle.o
 
@@ -318,9 +294,6 @@ help:
 	@echo "... src/InputManager.o"
 	@echo "... src/InputManager.i"
 	@echo "... src/InputManager.s"
-	@echo "... src/Menu.o"
-	@echo "... src/Menu.i"
-	@echo "... src/Menu.s"
 	@echo "... src/Paddle.o"
 	@echo "... src/Paddle.i"
 	@echo "... src/Paddle.s"
