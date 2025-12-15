@@ -1,4 +1,4 @@
-#include "GameObject.h"
+#include "GameObject.hpp"
 #include <cmath>
 
 GameObject::GameObject(float x, float y, float width, float height)

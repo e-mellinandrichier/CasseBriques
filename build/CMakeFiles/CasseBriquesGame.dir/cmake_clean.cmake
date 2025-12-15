@@ -13,7 +13,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o.d"
   "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o"
   "CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o.d"
-  "CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame"
+  "CasseBriquesGame"
   "CasseBriquesGame.pdb"
 )
 

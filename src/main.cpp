@@ -5,12 +5,12 @@
 #include <algorithm>
 #include <cmath>
 
-#include "GameObject.h"
-#include "InputManager.h"
-#include "Brick.h"
-#include "Paddle.h"
-#include "Ball.h"
-#include "Menu.h"
+#include "GameObject.hpp"
+#include "InputManager.hpp"
+#include "Brick.hpp"
+#include "Paddle.hpp"
+#include "Ball.hpp"
+#include "Menu.hpp"
 
 void runGame(sf::RenderWindow& window)
 {

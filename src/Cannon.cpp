@@ -1,4 +1,4 @@
-#include "Cannon.h"
+#include "Cannon.hpp"
 #include <cmath>
 
 Cannon::Cannon(float x, float y, float width, float height)

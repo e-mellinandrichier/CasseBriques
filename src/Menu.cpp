@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "Menu.hpp"
 #include <iostream>
 
 Menu::Menu(sf::RenderWindow& window)

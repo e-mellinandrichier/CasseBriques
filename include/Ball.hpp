@@ -1,27 +1,38 @@
 #pragma once
 
 #include "GameObject.hpp"
-#include "Paddle.hpp"
-#include "Brick.hpp"
 #include <SFML/Graphics.hpp>
 
-class Ball : public GameObject {
-
+class Ball : public GameObject
+{
 public:
-    Ball(const sf::Texture& texture, float X, float Y);
+    Ball(float x, float y, float radius, const sf::Vector2f& velocity);
 
-    void update(float time) override;
+    void update(float deltaTime) override;
+    void draw(sf::RenderWindow& window) const override;
 
-    void setSpeed(float speed);
-    float getSpeed() const;
+    float getRadius() const { return m_radius; }
 
-    void checkCollisionPaddle(const Paddle& paddle);
-    sf::FloatRect getHitbox() const;
+    // Bounce off walls (left, right, top)
+    void bounceOffWalls(float windowWidth, float windowHeight);
 
-    bool checkCollisionBrick(Brick& brick);
+    // Check if ball is out of bounds (below window)
+    bool isOutOfBounds(float windowHeight) const;
+
+    // Collision with AABB (for bricks)
+    bool checkCollisionWithAABB(const sf::FloatRect& aabb);
+    void handleCollisionWithAABB(const sf::FloatRect& aabb);
+
+    // Enable/disable gravity
+    void setGravityEnabled(bool enabled) { m_gravityEnabled = enabled; }
 
 private:
-    float speed;
-    sf::Vector2f direction;
-    void reverseY();
+    float m_radius;
+    sf::CircleShape m_shape;
+    float m_speed;
+    bool m_gravityEnabled{true};
+    static constexpr float m_gravity{50.f}; // Gravity acceleration in pixels per second squared (reduced)
+
+    sf::Vector2f getCenter() const;
 };
+

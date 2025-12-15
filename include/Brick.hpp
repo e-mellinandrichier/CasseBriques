@@ -1,32 +1,28 @@
-#pragma once 
+#pragma once
 
 #include "GameObject.hpp"
 #include <SFML/Graphics.hpp>
 
-class Brick : public GameObject {
-
+class Brick : public GameObject
+{
 public:
-    enum BrickType {
-        NORMAL = 1,
-        REINFORCED = 2,
-        SOLID = 3
-    };
+    Brick(float x, float y, float width, float height, int maxHealth = 1);
 
-    Brick(const sf::Texture& texture, float X, float Y, BrickType type = NORMAL);
+    int getHealth() const { return m_health; }
+    int getMaxHealth() const { return m_maxHealth; }
+    bool isDestroyed() const { return m_health <= 0; }
 
-    void update(float time) override;
+    void takeDamage(int damage = 1);
+    void destroy();
 
-    void hit();
-    bool isDestroyed() const;
-    int getLife() const;
-    int getMaxLife() const;
-    int getScoreValue() const;
+    void update(float deltaTime) override;
+    void draw(sf::RenderWindow& window) const override;
 
 private:
-    int life;
-    int maxLife;
-    bool destroyed;
-    BrickType type;
-    
-    void updateColor();
+    int m_health;
+    int m_maxHealth;
+    sf::RectangleShape m_shape;
+
+    sf::Color getColorForHealth() const;
 };
+
