@@ -1,204 +1,127 @@
 @startuml ClassDiagramStep2
-
-!define ABSTRACT abstract
 !theme plain
 
-' Enums and Structs (from Step 1)
-enum ShapeType {
-  CIRCLE
-  RECTANGLE
-}
-
-struct AABB {
-  x : float
-  y : float
-  width : float
-  height : float
-  --
-  left() : float
-  right() : float
-  top() : float
-  bottom() : float
-  center() : Vector2f
-  contains(point) : bool
-}
-
-' Base Classes (Step 1)
+' ============ BASE CLASS ============
 class GameObject {
-  #position : Vector2f
-  #velocity : Vector2f
-  #rotation : float
-  #size : Vector2f
-  #color : Color
-  #shapeType : ShapeType
-  #collisionBox : AABB
+  # m_position : Vector2f
+  # m_velocity : Vector2f
+  # m_rotation : float
+  # m_size : Vector2f
   --
-  +virtual ~GameObject()
-  +virtual update(deltaTime)
-  +virtual render(window)
-  +getters/setters...
-  #updateCollisionBox()
+  + getPosition() : Vector2f
+  + setPosition(x, y) : void
+  + getVelocity() : Vector2f
+  + setVelocity(x, y) : void
+  + getSize() : Vector2f
+  + setSize(w, h) : void
+  + getAABB() : FloatRect
+  + checkCollision(other) : bool
+  + update(dt) : void
+  + draw(window) : void
+}
+
+' ============ GAMEPLAY CLASSES ============
+class Paddle {
+  - m_shape : RectangleShape
+  - m_moveSpeed : float
+  - m_maxSpeed : float (static)
+  --
+  + Paddle(x, y, width, height)
+  + update(dt) : void
+  + draw(window) : void
+  + moveLeft(speed) : void
+  + moveRight(speed) : void
+  + stop() : void
+  + getBounds() : FloatRect
+}
+
+class Ball {
+  - m_radius : float
+  - m_shape : CircleShape
+  - m_speed : float
+  - m_gravityEnabled : bool
+  - m_gravity : float (static)
+  --
+  + Ball(x, y, radius, velocity)
+  + update(dt) : void
+  + draw(window) : void
+  + getRadius() : float
+  + bounceOffWalls(w, h) : void
+  + isOutOfBounds(h) : bool
+  + checkCollisionWithAABB(aabb) : bool
+  + handleCollisionWithAABB(aabb) : void
+  + setGravityEnabled(enabled) : void
+}
+
+class Brick {
+  - m_health : int
+  - m_maxHealth : int
+  - m_shape : RectangleShape
+  --
+  + Brick(x, y, width, height, maxHealth)
+  + update(dt) : void
+  + draw(window) : void
+  + getHealth() : int
+  + getMaxHealth() : int
+  + isDestroyed() : bool
+  + takeDamage(damage) : void
+  + destroy() : void
+}
+
+' ============ MAIN GAME ============
+enum GameState {
+  MENU
+  PLAYING
+  GAME_OVER
+  VICTORY
 }
 
 class Game {
-  -window : RenderWindow
-  -gameObjects : vector<unique_ptr<GameObject>>
-  -isRunning : bool
-  -deltaTime : float
+  - window : RenderWindow
+  - paddle : Paddle ptr
+  - ball : Ball ptr
+  - bricks : vector Brick
+  - state : GameState
+  - lives : int
+  - score : int
+  - ballLaunched : bool
+  - clock : Clock
+  - font : Font
   --
-  +init()
-  +run()
-  +quit()
-  +addGameObject(obj)
-  +removeGameObject(obj)
-  -update(deltaTime)
-  -render()
-  -checkCollisions()
+  + Game()
+  + run() : int
+  - initializeGame() : void
+  - createBricks() : void
+  - resetBall() : void
+  - handleEvents() : void
+  - update(dt) : void
+  - draw() : void
+  - checkGameOver() : void
 }
 
+' ============ INPUT SYSTEM ============
 class InputManager {
-  +{static} getInstance() : InputManager&
-  +update(window)
-  +registerKeyCallback(key, callback)
-  +isKeyPressed(key) : bool
-  +getMousePosition() : Vector2f
-}
-
-class CollisionDetector {
-  +{static} checkAABB(box1, box2) : bool
-  +{static} checkCircleAABB(circle, box) : bool
-  +{static} getCollisionNormal(box1, box2) : Vector2f
-}
-
-' NEW STEP 2: Gameplay Classes
-
-ABSTRACT class Paddle {
-  -speed : float
+  - m_keyBindings : map
+  - m_mouseBindings : map
+  - m_mousePosition : Vector2i
+  - instance : InputManager (static)
   --
-  +Paddle(x, y, width, height)
-  +update(deltaTime) : void override
-  +moveLeft() : void
-  +moveRight() : void
-  +reset() : void
+  + getInstance() : InputManager (static)
+  + processEvent(event) : void
+  + bindKey(key, callback) : void
+  + unbindKey(key) : void
+  + isKeyPressed(key) : bool
 }
 
-ABSTRACT class Ball {
-  -speed : float
-  -isLaunched : bool
-  --
-  +Ball(x, y, radius)
-  +update(deltaTime) : void override
-  +launch(vx, vy) : void
-  +reset() : void
-  +onCollision(obj, normal) : void
-}
-
-ABSTRACT class Brick {
-  -health : int
-  -pointValue : int
-  -isDestroyed : bool
-  --
-  +Brick(x, y, width, height)
-  +update(deltaTime) : void override
-  +takeDamage(damage) : void
-  +isAlive() : bool
-  +getPoints() : int
-  +render(window) : void override
-}
-
-class Scene {
-  -paddle : Paddle*
-  -ball : Ball*
-  -bricks : vector<Brick*>
-  -score : int
-  -level : int
-  -isGameOver : bool
-  --
-  +Scene()
-  +~Scene()
-  +init() : void
-  +update(deltaTime) : void
-  +render(window) : void
-  +getScore() : int
-  +isGameWon() : bool
-  +isGameLost() : bool
-  -initializePaddle() : void
-  -initializeBall() : void
-  -initializeBricks() : void
-  -updateCollisions() : void
-}
-
-class ScoreManager {
-  -currentScore : int
-  -highScore : int
-  -scoreMultiplier : float
-  --
-  +{static} getInstance() : ScoreManager&
-  +addScore(points) : void
-  +getScore() : int
-  +getHighScore() : int
-  +resetScore() : void
-  +loadHighScore() : void
-  +saveHighScore() : void
-  -ScoreManager()
-}
-
-' Relationships: Step 1 Components
-GameObject --> ShapeType : uses
-GameObject --> AABB : has
-Game --> GameObject : manages
-Game --> InputManager : uses
-Game --> CollisionDetector : uses
-
-' Relationships: Step 2 Additions
+' ============ RELATIONSHIPS ============
 Paddle --|> GameObject : extends
 Ball --|> GameObject : extends
 Brick --|> GameObject : extends
 
-Game --> Scene : manages
-Scene --> Paddle : owns
-Scene --> Ball : owns
-Scene --> Brick : owns many
-Scene --> CollisionDetector : uses
-Scene --> ScoreManager : uses
-
-Ball --> Paddle : collides with
-Ball --> Brick : collides with
-ScoreManager --> Brick : queries points
-
-' Notes
-note right of Paddle
-  Player-controlled paddle.
-  Moves left/right based on input.
-  Bounces the ball.
-end note
-
-note right of Ball
-  Game ball.
-  Starts attached to paddle,
-  launches on input, bounces on collisions.
-end note
-
-note right of Brick
-  Destructible brick.
-  Health system, award points
-  when destroyed.
-end note
-
-note right of Scene
-  NEW: Manages all gameplay objects.
-  Handles level state, collisions,
-  win/lose conditions.
-end note
-
-note right of ScoreManager
-  NEW: Singleton for score tracking.
-  Handles high score persistence.
-end note
-
-note bottom of Paddle
-  Paddle, Ball and Brick all inherit from GameObject
-  and override update/render methods
-end note
+Game --> Paddle : owns
+Game --> Ball : owns
+Game --> Brick : owns *
+Game --> GameState : uses
+Game --> InputManager : uses
 
 @enduml

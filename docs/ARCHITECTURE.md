@@ -7,7 +7,7 @@
 
 # Architecture 
 
-# Étape 1 : mini moteur de jeu
+# Étape 2 : Jeu Casse-Briques (implémenté)
 
 ## Aperçu
 
@@ -429,9 +429,198 @@ Les classes du moteur de base ne doivent **pas** changer de manière significati
 
 ---
 
-## Conclusion
+## Étape 2 : Jeu Casse-Briques (implémenté)
 
-Cette architecture fournit une **fondation minimale et propre** pour un moteur de jeu. Elle sépare les préoccupations (entrée, physique, rendu) et facilite l'ajout de fonctionnalités spécifiques au jeu à l'étape 2 sans refactorisation majeure.
+L'étape 2 a étendu le moteur de jeu mini avec un jeu de casse-briques complet fonctionnel.
+
+### Nouveaux composants implémentés
+
+#### **Classe Paddle**
+Représente la raquette contrôlée par le joueur.
+
+**Responsabilités :**
+- Mouvement gauche/droite avec contraintes de vitesse
+- Rendu en rectangle blanc avec contour cyan
+- Détection de collision AABB avec la balle
+- Méthodes de mouvement : `moveLeft()`, `moveRight()`, `stop()`
+
+**Propriétés clés :**
+```cpp
+float m_moveSpeed;           // Vitesse de mouvement actuelle
+sf::RectangleShape m_shape;  // Forme de rendu
+static constexpr float m_maxSpeed{400.f};
+```
+
+#### **Classe Ball**
+Représente la balle de jeu avec physique avancée.
+
+**Responsabilités :**
+- Mouvement basé sur la vélocité avec mise à jour physique
+- Système de gravité optionnel (par défaut activé)
+- Rebond automatique sur les murs (gauche, droite, haut)
+- Détection de collision cercle-vers-AABB avec les briques
+- Détection des dépassements de limites (en dessous de la fenêtre = perte de vie)
+
+**Propriétés clés :**
+```cpp
+float m_radius;              // Rayon de la balle
+float m_speed;               // Vitesse absolue
+bool m_gravityEnabled;       // Activer/désactiver la gravité
+sf::CircleShape m_shape;     // Forme de rendu
+static constexpr float m_gravity{50.f};
+```
+
+**Méthodes clés :**
+```cpp
+void bounceOffWalls(float windowWidth, float windowHeight);
+bool isOutOfBounds(float windowHeight) const;
+bool checkCollisionWithAABB(const sf::FloatRect& aabb);
+void handleCollisionWithAABB(const sf::FloatRect& aabb);
+```
+
+#### **Classe Brick**
+Représente une brique destructible.
+
+**Responsabilités :**
+- Système de santé avec durabilité configurable
+- Dégâts et destruction
+- Changement de couleur basé sur la santé (rouge → jaune → vert)
+- Rendu conditionnel (invisible si détruite)
+
+**Propriétés clés :**
+```cpp
+int m_health;                // Santé actuelle
+int m_maxHealth;             // Santé maximale
+sf::RectangleShape m_shape;  // Forme de rendu
+```
+
+**Méthodes clés :**
+```cpp
+void takeDamage(int damage = 1);
+void destroy();
+bool isDestroyed() const;
+int getHealth() const;
+```
+
+#### **Classe Game**
+Gestionnaire principal de l'état du jeu et de la boucle de jeu.
+
+**Responsabilités :**
+- Machine d'état du jeu (MENU, PLAYING, GAME_OVER, VICTORY)
+- Création et gestion de la fenêtre SFML
+- Gestion de la raquette, balle et grille de briques
+- Suivi des vies et des scores
+- Vérification des conditions de victoire/défaite
+- Détection et gestion des collisions
+
+**Propriétés clés :**
+```cpp
+enum GameState { MENU, PLAYING, GAME_OVER, VICTORY };
+sf::RenderWindow window;
+std::unique_ptr<Paddle> paddle;
+std::unique_ptr<Ball> ball;
+std::vector<std::unique_ptr<Brick>> bricks;
+int lives;
+int score;
+bool ballLaunched;
+```
+
+**Méthodes clés :**
+```cpp
+int run();                          // Boucle principale
+void initializeGame();              // Initialiser le jeu
+void createBricks();                // Créer la grille de briques
+void handleEvents();                // Traiter les événements
+void update(float deltaTime);       // Mettre à jour l'état du jeu
+void draw();                        // Rendu
+void checkGameOver();               // Vérifier les conditions de victoire/défaite
+void resetBall();                   // Réinitialiser la position de la balle
+```
+
+### Classe InputManager (mise à jour)
+
+La classe a été refactorisée pour mieux s'intégrer avec SFML.
+
+**Méthodes clés :**
+```cpp
+static InputManager& getInstance();
+void processEvent(const sf::Event& event);
+void bindKey(sf::Keyboard::Key key, KeyCallback callback);
+void bindMouseButton(sf::Mouse::Button button, MouseCallback callback);
+bool isKeyPressed(sf::Keyboard::Key key) const;
+```
+
+### Structure des fichiers mise à jour
+
+```
+CasseBriques/
+├── include/
+│   ├── GameObject.hpp       # Classe de base pour tous les objets
+│   ├── Paddle.hpp           # Raquette du joueur
+│   ├── Ball.hpp             # Balle du jeu
+│   ├── Brick.hpp            # Brique destructible
+│   └── InputManager.hpp     # Gestion de l'entrée
+│
+├── src/
+│   ├── main.cpp             # Point d'entrée avec classe Game
+│   ├── GameObject.cpp       # Implémentation base
+│   ├── Paddle.cpp           # Implémentation raquette
+│   ├── Ball.cpp             # Implémentation balle
+│   ├── Brick.cpp            # Implémentation brique
+│   └── InputManager.cpp     # Implémentation entrée
+│
+└── docs/
+    └── ARCHITECTURE.md      # Ce fichier !
+```
+
+### Flux du jeu principal
+
+```
+1. INITIALISATION
+   └─→ Créer la fenêtre SFML
+   └─→ Charger les polices
+   └─→ Créer la raquette, balle et grille de briques
+
+2. BOUCLE DE JEU
+   for chaque frame:
+       ├─→ Traiter les événements (InputManager)
+       │
+       ├─→ SI état == PLAYING:
+       │   ├─→ Mettre à jour raquette, balle, briques
+       │   ├─→ Vérifier collision balle vs raquette
+       │   ├─→ Vérifier collision balle vs briques
+       │   ├─→ Balle rebondit sur les murs
+       │   ├─→ Vérifier perte de vie (balle hors limites)
+       │   └─→ Vérifier victoire (toutes les briques détruites)
+       │
+       └─→ Rendu
+           ├─→ Effacer l'écran
+           ├─→ Afficher le score et les vies
+           ├─→ Afficher raquette, balle, briques
+           └─→ Afficher l'écran
+
+3. CONDITION DE SORTIE
+   └─→ Fermeture de la fenêtre
+```
+
+---
+
+## Conclusion (Étape 2)
+
+L'implémentation de l'étape 2 crée un **jeu de casse-briques complet et jouable** en construisant sur les fondations du moteur de l'étape 1. Le code maintient une séparation claire des préoccupations avec des responsabilités bien définies pour chaque classe.
+
+**Points clés :**
+- Héritage approprié (GameObject base class pour Paddle, Ball, Brick)
+- Gestion d'état simple mais efficace
+- Physique réaliste avec gravité optionnelle
+- Système de santé flexible pour les briques
+- Détection de collision robuste (cercle-AABB, AABB-AABB)
+
+Les prochaines étapes pourraient inclure :
+- Effets visuels et sonores (particules, audio)
+- Menus de démarrage et écrans de fin
+- Niveaux supplémentaires avec progression
+- Power-ups et objets spéciaux
 
 ---
 
@@ -444,7 +633,7 @@ Cette architecture fournit une **fondation minimale et propre** pour un moteur d
 
 # Architecture 
 
-# Step 1: mini game engine
+# Step 2: Brick-Breaker Game (implemented)
 
 ## Overview
 
@@ -869,3 +1058,198 @@ The core engine classes should **not** change significantly.
 ## Conclusion
 
 This architecture provides a **minimal, clean foundation** for a game engine. It separates concerns (input, physics, rendering) and makes it easy to add game-specific features in Step 2 without major refactoring.
+
+---
+
+## Step 2: Brick-Breaker Game (implemented)
+
+Step 2 extended the mini game engine with a complete, functional brick-breaker game.
+
+### New implemented components
+
+#### **Paddle Class**
+Represents the player-controlled paddle.
+
+**Responsibilities:**
+- Left/right movement with speed constraints
+- Rendering as white rectangle with cyan outline
+- AABB collision detection with ball
+- Movement methods: `moveLeft()`, `moveRight()`, `stop()`
+
+**Key properties:**
+```cpp
+float m_moveSpeed;           // Current movement speed
+sf::RectangleShape m_shape;  // Rendering shape
+static constexpr float m_maxSpeed{400.f};
+```
+
+#### **Ball Class**
+Represents the game ball with advanced physics.
+
+**Responsibilities:**
+- Velocity-based movement with physics updates
+- Optional gravity system (enabled by default)
+- Automatic wall bouncing (left, right, top walls)
+- Circle-to-AABB collision detection with bricks
+- Out-of-bounds detection (below window = life loss)
+
+**Key properties:**
+```cpp
+float m_radius;              // Ball radius
+float m_speed;               // Absolute speed
+bool m_gravityEnabled;       // Enable/disable gravity
+sf::CircleShape m_shape;     // Rendering shape
+static constexpr float m_gravity{50.f};
+```
+
+**Key methods:**
+```cpp
+void bounceOffWalls(float windowWidth, float windowHeight);
+bool isOutOfBounds(float windowHeight) const;
+bool checkCollisionWithAABB(const sf::FloatRect& aabb);
+void handleCollisionWithAABB(const sf::FloatRect& aabb);
+```
+
+#### **Brick Class**
+Represents a destructible brick.
+
+**Responsibilities:**
+- Health system with configurable durability
+- Damage and destruction mechanics
+- Health-based color gradient (red → yellow → green)
+- Conditional rendering (invisible when destroyed)
+
+**Key properties:**
+```cpp
+int m_health;                // Current health
+int m_maxHealth;             // Maximum health
+sf::RectangleShape m_shape;  // Rendering shape
+```
+
+**Key methods:**
+```cpp
+void takeDamage(int damage = 1);
+void destroy();
+bool isDestroyed() const;
+int getHealth() const;
+```
+
+#### **Game Class**
+Main game state manager and game loop orchestrator.
+
+**Responsibilities:**
+- Game state machine (MENU, PLAYING, GAME_OVER, VICTORY)
+- Creation and management of SFML window
+- Management of paddle, ball, and brick grid
+- Lives and score tracking
+- Win/lose condition checking
+- Collision detection and handling
+
+**Key properties:**
+```cpp
+enum GameState { MENU, PLAYING, GAME_OVER, VICTORY };
+sf::RenderWindow window;
+std::unique_ptr<Paddle> paddle;
+std::unique_ptr<Ball> ball;
+std::vector<std::unique_ptr<Brick>> bricks;
+int lives;
+int score;
+bool ballLaunched;
+```
+
+**Key methods:**
+```cpp
+int run();                          // Main loop
+void initializeGame();              // Initialize game
+void createBricks();                // Create brick grid
+void handleEvents();                // Process events
+void update(float deltaTime);       // Update game state
+void draw();                        // Render frame
+void checkGameOver();               // Check win/lose conditions
+void resetBall();                   // Reset ball position
+```
+
+### InputManager Class (updated)
+
+The class was refactored to better integrate with SFML.
+
+**Key methods:**
+```cpp
+static InputManager& getInstance();
+void processEvent(const sf::Event& event);
+void bindKey(sf::Keyboard::Key key, KeyCallback callback);
+void bindMouseButton(sf::Mouse::Button button, MouseCallback callback);
+bool isKeyPressed(sf::Keyboard::Key key) const;
+```
+
+### Updated file structure
+
+```
+CasseBriques/
+├── include/
+│   ├── GameObject.hpp       # Base class for all game objects
+│   ├── Paddle.hpp           # Player paddle
+│   ├── Ball.hpp             # Game ball
+│   ├── Brick.hpp            # Destructible brick
+│   └── InputManager.hpp     # Input handling
+│
+├── src/
+│   ├── main.cpp             # Entry point with Game class
+│   ├── GameObject.cpp       # Base implementation
+│   ├── Paddle.cpp           # Paddle implementation
+│   ├── Ball.cpp             # Ball implementation
+│   ├── Brick.cpp            # Brick implementation
+│   └── InputManager.cpp     # Input implementation
+│
+└── docs/
+    └── ARCHITECTURE.md      # This file!
+```
+
+### Main game loop flow
+
+```
+1. INITIALIZATION
+   └─→ Create SFML window
+   └─→ Load fonts
+   └─→ Create paddle, ball, and brick grid
+
+2. GAME LOOP
+   for each frame:
+       ├─→ Process events (InputManager)
+       │
+       ├─→ IF state == PLAYING:
+       │   ├─→ Update paddle, ball, bricks
+       │   ├─→ Check ball vs paddle collision
+       │   ├─→ Check ball vs brick collisions
+       │   ├─→ Ball bounces off walls
+       │   ├─→ Check life loss (ball out of bounds)
+       │   └─→ Check victory (all bricks destroyed)
+       │
+       └─→ Render
+           ├─→ Clear screen
+           ├─→ Display score and lives
+           ├─→ Display paddle, ball, bricks
+           └─→ Display screen
+
+3. EXIT CONDITION
+   └─→ Window close
+```
+
+---
+
+## Conclusion (Step 2)
+
+Step 2's implementation creates a **complete, playable brick-breaker game** by building on the foundation of Step 1's engine. The code maintains clear separation of concerns with well-defined responsibilities for each class.
+
+**Key highlights:**
+- Appropriate inheritance (GameObject base class for Paddle, Ball, Brick)
+- Simple but effective state management
+- Realistic physics with optional gravity
+- Flexible health system for bricks
+- Robust collision detection (circle-AABB, AABB-AABB)
+
+Future steps could include:
+- Visual and audio effects (particles, sound)
+- Startup menus and end screens
+- Additional levels with progression
+- Power-ups and special objects
