@@ -50,34 +50,36 @@ The first milestone is all about setting up a lightweight game engine that can r
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed architecture and [docs/ClassDiagramStep1.puml](docs/ClassDiagramStep1.puml) for class diagrams.
 
-### Step 2: Brick-Breaker gameplay ⏳
+### Step 2: Brick-Breaker gameplay ✅
 
-**planned additions:**
+**implemented features:**
 
 - **`Paddle`** (extends GameObject): player-controlled paddle
-  - Left/right movement
-  - Collision response with ball
+  - Left/right movement with speed constraints
+  - Collision detection and response with ball
+  - Visual styling with outline
 
 - **`Ball`** (extends GameObject): game ball
-  - launch mechanics
-  - physics-based bouncing on collisions
-  - reset functionality
+  - Physics-based velocity and movement
+  - Optional gravity system
+  - Wall bouncing (left, right, top walls)
+  - Circle-to-AABB collision detection
+  - Out-of-bounds detection
 
 - **`Brick`** (extends GameObject): destructible bricks
-  - health/durability system
-  - point rewards
-  - visual destruction feedback
+  - Health/durability system (configurable max health)
+  - Damage mechanics
+  - Health-based color gradient (red → yellow → green)
+  - Automatic destruction when health reaches 0
 
-- **`Scene`**: game state manager
-  - paddle, ball, and brick management
-  - win/lose condition handling
-  - level progression
+- **`Game`** class: main game state manager
+  - Game state machine (MENU, PLAYING, GAME_OVER, VICTORY)
+  - Paddle, ball, and brick management
+  - Lives and score tracking
+  - Win/lose condition handling
+  - Brick grid generation and level management
 
-- **`ScoreManager`** (singleton): score tracking
-  - current & high score management
-  - score persistence (save/load)
-
-See [docs/ClassDiagramStep2.puml](docs/ClassDiagramStep2.puml) for planned architecture.
+See [docs/ClassDiagramStep2.puml](docs/ClassDiagramStep2.puml) for current architecture.
 
 ---
 
@@ -124,16 +126,10 @@ build\Release\CasseBriques.exe  # Windows
 
 ---
 
-## Roadmap
+## Project so far...
 
-| step | goal | status |
-|------|------|--------|
-| 1 | mini game engine (GameObject, InputManager, AABB collisions) | ✅ complete |
-| 2 | brick-breaker gameplay (paddle, ball, bricks, scoring) | ⏳ in progress |
-| 3 | audio/visual polish, menu, end screen | ⏳ planned |
-| 4 | packaging and multi-platform distribution | ⏳ planned |
-
----
+1. ✅ mini game engine (GameObject, InputManager, AABB collisions)
+2. ✅ brick-breaker gameplay (Paddle, Ball, Brick, Game state)
 
 ## Documentation
 
@@ -220,34 +216,36 @@ Le premier jalon consiste à mettre en place un moteur de jeu léger qui peut re
 
 Voir [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) pour l'architecture détaillée et [docs/ClassDiagramStep1.puml](docs/ClassDiagramStep1.puml) pour les diagrammes de classe.
 
-### Étape 2: gameplay Casse-Briques ⏳
+### Étape 2: gameplay Casse-Briques ✅
 
-**ajouts prévus:**
+**fonctionnalités implémentées:**
 
 - **`Paddle`** (extends GameObject): palette contrôlée par le joueur
-  - Mouvement gauche/droite
-  - Réponse de collision avec la balle
+  - Mouvement gauche/droite avec contraintes de vitesse
+  - Détection de collision AABB avec la balle
+  - Style visuel avec contour
 
 - **`Ball`** (extends GameObject): balle du jeu
-  - mécaniques de lancement
-  - rebond physique sur collisions
-  - fonctionnalité de réinitialisation
+  - Physique basée sur la vélocité
+  - Système de gravité optionnel
+  - Rebond sur les murs (gauche, droite, haut)
+  - Détection de collision cercle-vers-AABB
+  - Détection des dépassements de limites
 
 - **`Brick`** (extends GameObject): briques destructibles
-  - système de santé/durabilité
-  - récompenses de points
-  - rétroaction visuelle de destruction
+  - Système de santé/durabilité (santé maximale configurable)
+  - Mécaniques de dégâts
+  - Dégradé de couleur basé sur la santé (rouge → jaune → vert)
+  - Destruction automatique quand la santé atteint 0
 
-- **`Scene`**: gestionnaire d'état du jeu
-  - gestion palette, balle et briques
-  - gestion des conditions de victoire/défaite
-  - progression de niveau
+- **`Game`** classe: gestionnaire principal d'état du jeu
+  - Machine d'état du jeu (MENU, PLAYING, GAME_OVER, VICTORY)
+  - Gestion palette, balle et grille de briques
+  - Suivi des vies et des scores
+  - Gestion des conditions de victoire/défaite
+  - Génération et gestion du niveau
 
-- **`ScoreManager`** (singleton): suivi des scores
-  - gestion du score actuel et du meilleur score
-  - persistance des scores (sauvegarde/chargement)
-
-Voir [docs/ClassDiagramStep2.puml](docs/ClassDiagramStep2.puml) pour l'architecture prévue.
+Voir [docs/ClassDiagramStep2.puml](docs/ClassDiagramStep2.puml) pour l'architecture actuelle.
 
 ---
 
@@ -294,14 +292,10 @@ build\Release\CasseBriques.exe  # Windows
 
 ---
 
-## Feuille de route
+## Projet jusqu'à présent...
 
-| étape | objectif | statut |
-|------|----------|--------|
-| 1 | mini moteur de jeu (GameObject, InputManager, collisions AABB) | ✅ complète |
-| 2 | gameplay casse-briques (palette, balle, briques, score) | ⏳ en cours |
-| 3 | polissage audio/visuel, menu, écran de fin | ⏳ planifiée |
-| 4 | empaquetage et distribution multi-plateforme | ⏳ planifiée |
+1. ✅ mini moteur de jeu (GameObject, InputManager, collisions AABB)
+2. ✅ gameplay casse-briques (Paddle, Ball, Brick, état du jeu)
 
 ---
 
