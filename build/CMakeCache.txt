@@ -14,6 +14,18 @@
 # EXTERNAL cache entries
 ########################
 
+//Build tests
+BUILD_TESTS:BOOL=OFF
+
+//Value Computed by CMake
+BreakOut_BINARY_DIR:STATIC=/Users/melli/Code/CasseBriques/build
+
+//Value Computed by CMake
+BreakOut_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+BreakOut_SOURCE_DIR:STATIC=/Users/melli/Code/CasseBriques
+
 //Build the CasseBriques test targets
 CASSEBRIQUES_BUILD_TESTS:BOOL=OFF
 
@@ -226,10 +238,10 @@ CasseBriques_IS_TOP_LEVEL:STATIC=ON
 CasseBriques_SOURCE_DIR:STATIC=/Users/melli/Code/CasseBriques
 
 //The directory containing a CMake configuration file for SFML.
-SFML_DIR:PATH=/opt/homebrew/lib/cmake/SFML
+SFML_DIR:PATH=/opt/homebrew/opt/sfml@2/lib/cmake/SFML
 
 //Path to a file.
-SFML_DOC_DIR:PATH=/opt/homebrew/share/doc/SFML
+SFML_DOC_DIR:PATH=SFML_DOC_DIR-NOTFOUND
 
 
 ########################

@@ -86,22 +86,144 @@ CMakeFiles/CasseBriquesGame.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/CasseBriquesGame.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/melli/Code/CasseBriques/src/main.cpp -o CMakeFiles/CasseBriquesGame.dir/src/main.cpp.s
 
+CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o: CMakeFiles/CasseBriquesGame.dir/flags.make
+CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o: /Users/melli/Code/CasseBriques/src/GameObject.cpp
+CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o: CMakeFiles/CasseBriquesGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o -MF CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o.d -o CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o -c /Users/melli/Code/CasseBriques/src/GameObject.cpp
+
+CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/melli/Code/CasseBriques/src/GameObject.cpp > CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.i
+
+CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/melli/Code/CasseBriques/src/GameObject.cpp -o CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.s
+
+CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o: CMakeFiles/CasseBriquesGame.dir/flags.make
+CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o: /Users/melli/Code/CasseBriques/src/InputManager.cpp
+CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o: CMakeFiles/CasseBriquesGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o -MF CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o.d -o CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o -c /Users/melli/Code/CasseBriques/src/InputManager.cpp
+
+CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/melli/Code/CasseBriques/src/InputManager.cpp > CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.i
+
+CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/melli/Code/CasseBriques/src/InputManager.cpp -o CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.s
+
+CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o: CMakeFiles/CasseBriquesGame.dir/flags.make
+CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o: /Users/melli/Code/CasseBriques/src/Brick.cpp
+CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o: CMakeFiles/CasseBriquesGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o -MF CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o.d -o CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o -c /Users/melli/Code/CasseBriques/src/Brick.cpp
+
+CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/melli/Code/CasseBriques/src/Brick.cpp > CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.i
+
+CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/melli/Code/CasseBriques/src/Brick.cpp -o CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.s
+
+CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o: CMakeFiles/CasseBriquesGame.dir/flags.make
+CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o: /Users/melli/Code/CasseBriques/src/Paddle.cpp
+CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o: CMakeFiles/CasseBriquesGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o -MF CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o.d -o CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o -c /Users/melli/Code/CasseBriques/src/Paddle.cpp
+
+CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/melli/Code/CasseBriques/src/Paddle.cpp > CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.i
+
+CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/melli/Code/CasseBriques/src/Paddle.cpp -o CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.s
+
+CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o: CMakeFiles/CasseBriquesGame.dir/flags.make
+CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o: /Users/melli/Code/CasseBriques/src/Ball.cpp
+CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o: CMakeFiles/CasseBriquesGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o -MF CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o.d -o CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o -c /Users/melli/Code/CasseBriques/src/Ball.cpp
+
+CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/melli/Code/CasseBriques/src/Ball.cpp > CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.i
+
+CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/melli/Code/CasseBriques/src/Ball.cpp -o CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.s
+
+CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o: CMakeFiles/CasseBriquesGame.dir/flags.make
+CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o: /Users/melli/Code/CasseBriques/src/Menu.cpp
+CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o: CMakeFiles/CasseBriquesGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o -MF CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o.d -o CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o -c /Users/melli/Code/CasseBriques/src/Menu.cpp
+
+CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/melli/Code/CasseBriques/src/Menu.cpp > CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.i
+
+CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/melli/Code/CasseBriques/src/Menu.cpp -o CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.s
+
 # Object files for target CasseBriquesGame
 CasseBriquesGame_OBJECTS = \
-"CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o"
+"CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o" \
+"CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o" \
+"CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o" \
+"CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o" \
+"CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o" \
+"CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o" \
+"CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o"
 
 # External object files for target CasseBriquesGame
 CasseBriquesGame_EXTERNAL_OBJECTS =
 
 CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/src/main.cpp.o
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o
 CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/build.make
-CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/lib/libsfml-graphics.3.0.2.dylib
-CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/lib/libsfml-window.3.0.2.dylib
-CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/lib/libsfml-audio.3.0.2.dylib
-CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/lib/libsfml-system.3.0.2.dylib
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/opt/sfml@2/lib/libsfml-graphics.2.6.1.dylib
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/opt/sfml@2/lib/libsfml-window.2.6.1.dylib
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/opt/sfml@2/lib/libsfml-audio.2.6.1.dylib
+CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: /opt/homebrew/opt/sfml@2/lib/libsfml-system.2.6.1.dylib
 CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame: CMakeFiles/CasseBriquesGame.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/melli/Code/CasseBriques/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CasseBriquesGame.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying SFML frameworks and libraries to app bundle"
+	/opt/homebrew/bin/cmake -E make_directory /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks
+	/opt/homebrew/bin/cmake -E copy_directory /opt/homebrew/opt/sfml@2/lib/OpenAL.framework /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/OpenAL.framework
+	/opt/homebrew/bin/cmake -E copy_directory /opt/homebrew/opt/sfml@2/lib/FLAC.framework /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/FLAC.framework
+	/opt/homebrew/bin/cmake -E copy_directory /opt/homebrew/opt/sfml@2/lib/ogg.framework /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/ogg.framework
+	/opt/homebrew/bin/cmake -E copy_directory /opt/homebrew/opt/sfml@2/lib/vorbis.framework /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/vorbis.framework
+	/opt/homebrew/bin/cmake -E copy_directory /opt/homebrew/opt/sfml@2/lib/vorbisenc.framework /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/vorbisenc.framework
+	/opt/homebrew/bin/cmake -E copy_directory /opt/homebrew/opt/sfml@2/lib/vorbisfile.framework /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/vorbisfile.framework
+	/opt/homebrew/bin/cmake -E copy_directory /opt/homebrew/opt/sfml@2/lib/freetype.framework /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/freetype.framework
+	/opt/homebrew/bin/cmake -E copy /opt/homebrew/opt/sfml@2/lib/libsfml-system.2.6.1.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-system.2.6.dylib
+	/opt/homebrew/bin/cmake -E copy /opt/homebrew/opt/sfml@2/lib/libsfml-window.2.6.1.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-window.2.6.dylib
+	/opt/homebrew/bin/cmake -E copy /opt/homebrew/opt/sfml@2/lib/libsfml-graphics.2.6.1.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-graphics.2.6.dylib
+	/opt/homebrew/bin/cmake -E copy /opt/homebrew/opt/sfml@2/lib/libsfml-audio.2.6.1.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-audio.2.6.dylib
+	install_name_tool -add_rpath @loader_path /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-system.2.6.dylib
+	install_name_tool -add_rpath @loader_path /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-window.2.6.dylib
+	install_name_tool -add_rpath @loader_path /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-graphics.2.6.dylib
+	install_name_tool -add_rpath @loader_path /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-audio.2.6.dylib
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-system.2.6.1.dylib @rpath/libsfml-system.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-window.2.6.1.dylib @rpath/libsfml-window.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-graphics.2.6.1.dylib @rpath/libsfml-graphics.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-audio.2.6.1.dylib @rpath/libsfml-audio.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-system.2.6.1.dylib @rpath/libsfml-system.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-window.2.6.dylib
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-system.2.6.1.dylib @rpath/libsfml-system.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-graphics.2.6.dylib
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-system.2.6.1.dylib @rpath/libsfml-system.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-audio.2.6.dylib
+	install_name_tool -change /opt/homebrew/opt/sfml@2/lib/libsfml-window.2.6.1.dylib @rpath/libsfml-window.2.6.dylib /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../Frameworks/libsfml-graphics.2.6.dylib
+	xattr -cr /Users/melli/Code/CasseBriques/build/CasseBriquesGame.app/Contents/MacOS/../..
 
 # Rule to build all files generated by this target.
 CMakeFiles/CasseBriquesGame.dir/build: CasseBriquesGame.app/Contents/MacOS/CasseBriquesGame

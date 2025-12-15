@@ -129,6 +129,150 @@ CasseBriquesGame/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/build
 .PHONY : CasseBriquesGame/fast
 
+src/Ball.o: src/Ball.cpp.o
+.PHONY : src/Ball.o
+
+# target to build an object file
+src/Ball.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.o
+.PHONY : src/Ball.cpp.o
+
+src/Ball.i: src/Ball.cpp.i
+.PHONY : src/Ball.i
+
+# target to preprocess a source file
+src/Ball.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.i
+.PHONY : src/Ball.cpp.i
+
+src/Ball.s: src/Ball.cpp.s
+.PHONY : src/Ball.s
+
+# target to generate assembly for a file
+src/Ball.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Ball.cpp.s
+.PHONY : src/Ball.cpp.s
+
+src/Brick.o: src/Brick.cpp.o
+.PHONY : src/Brick.o
+
+# target to build an object file
+src/Brick.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.o
+.PHONY : src/Brick.cpp.o
+
+src/Brick.i: src/Brick.cpp.i
+.PHONY : src/Brick.i
+
+# target to preprocess a source file
+src/Brick.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.i
+.PHONY : src/Brick.cpp.i
+
+src/Brick.s: src/Brick.cpp.s
+.PHONY : src/Brick.s
+
+# target to generate assembly for a file
+src/Brick.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Brick.cpp.s
+.PHONY : src/Brick.cpp.s
+
+src/GameObject.o: src/GameObject.cpp.o
+.PHONY : src/GameObject.o
+
+# target to build an object file
+src/GameObject.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.o
+.PHONY : src/GameObject.cpp.o
+
+src/GameObject.i: src/GameObject.cpp.i
+.PHONY : src/GameObject.i
+
+# target to preprocess a source file
+src/GameObject.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.i
+.PHONY : src/GameObject.cpp.i
+
+src/GameObject.s: src/GameObject.cpp.s
+.PHONY : src/GameObject.s
+
+# target to generate assembly for a file
+src/GameObject.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/GameObject.cpp.s
+.PHONY : src/GameObject.cpp.s
+
+src/InputManager.o: src/InputManager.cpp.o
+.PHONY : src/InputManager.o
+
+# target to build an object file
+src/InputManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.o
+.PHONY : src/InputManager.cpp.o
+
+src/InputManager.i: src/InputManager.cpp.i
+.PHONY : src/InputManager.i
+
+# target to preprocess a source file
+src/InputManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.i
+.PHONY : src/InputManager.cpp.i
+
+src/InputManager.s: src/InputManager.cpp.s
+.PHONY : src/InputManager.s
+
+# target to generate assembly for a file
+src/InputManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/InputManager.cpp.s
+.PHONY : src/InputManager.cpp.s
+
+src/Menu.o: src/Menu.cpp.o
+.PHONY : src/Menu.o
+
+# target to build an object file
+src/Menu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.o
+.PHONY : src/Menu.cpp.o
+
+src/Menu.i: src/Menu.cpp.i
+.PHONY : src/Menu.i
+
+# target to preprocess a source file
+src/Menu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.i
+.PHONY : src/Menu.cpp.i
+
+src/Menu.s: src/Menu.cpp.s
+.PHONY : src/Menu.s
+
+# target to generate assembly for a file
+src/Menu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Menu.cpp.s
+.PHONY : src/Menu.cpp.s
+
+src/Paddle.o: src/Paddle.cpp.o
+.PHONY : src/Paddle.o
+
+# target to build an object file
+src/Paddle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.o
+.PHONY : src/Paddle.cpp.o
+
+src/Paddle.i: src/Paddle.cpp.i
+.PHONY : src/Paddle.i
+
+# target to preprocess a source file
+src/Paddle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.i
+.PHONY : src/Paddle.cpp.i
+
+src/Paddle.s: src/Paddle.cpp.s
+.PHONY : src/Paddle.s
+
+# target to generate assembly for a file
+src/Paddle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CasseBriquesGame.dir/build.make CMakeFiles/CasseBriquesGame.dir/src/Paddle.cpp.s
+.PHONY : src/Paddle.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -162,6 +306,24 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CasseBriquesGame"
+	@echo "... src/Ball.o"
+	@echo "... src/Ball.i"
+	@echo "... src/Ball.s"
+	@echo "... src/Brick.o"
+	@echo "... src/Brick.i"
+	@echo "... src/Brick.s"
+	@echo "... src/GameObject.o"
+	@echo "... src/GameObject.i"
+	@echo "... src/GameObject.s"
+	@echo "... src/InputManager.o"
+	@echo "... src/InputManager.i"
+	@echo "... src/InputManager.s"
+	@echo "... src/Menu.o"
+	@echo "... src/Menu.i"
+	@echo "... src/Menu.s"
+	@echo "... src/Paddle.o"
+	@echo "... src/Paddle.i"
+	@echo "... src/Paddle.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
